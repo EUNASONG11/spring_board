@@ -111,7 +111,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController //빈 등록 + 컨트롤러 임명, 빈 등록은 스프링 컨테이너가 직접 객체화를 한다.
 @RequestMapping("/board")
 public class BoardController {
-    private final BoardService boardService;
+    private final BoardService service;
 
     // @RequiredArgsConstructor 애노테이션을 붙이면 아래 생성자가 자동으로 만들어진다.
 //    public BoardController(BoardService boardService) {
@@ -124,6 +124,6 @@ public class BoardController {
     // @RequestBody는 요청이 올 때 데이터가 JSON 형태로 오니까 JSON에 맞춰서 데이터를 받자는 의미.
     public int insBoard (@RequestBody BoardInsReq p) {
         System.out.println(p);
-        return 1;
+        return service.insBoard(p);
     }
 }

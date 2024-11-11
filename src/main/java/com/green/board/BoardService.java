@@ -1,5 +1,6 @@
 package com.green.board;
 
+import com.green.board.model.BoardInsReq;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,4 +15,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class BoardService {
     private final BoardMapper mapper;
+
+    public int insBoard(BoardInsReq p) {
+        return mapper.insBoard(p);
+    }
 }
