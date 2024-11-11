@@ -27,4 +27,16 @@ xml, html 둘 다 마크업 언어이다.
               , contents = #{contents}
               , writer = #{writer}
     </insert>
+
+    <select id="selBoardList">
+            SELECT board_id AS boardId, title, writer,create_at AS createdAt
+              FROM board
+          ORDER BY board_id DESC
+    </select>
+
+    <select id="selBoardOne">
+            SELECT board_id AS boardId, title, writer,create_at AS createdAt
+              FROM board
+             WHERE board_id = #{board_id}
+    </select>
 </mapper>

@@ -101,11 +101,13 @@ package com.green.board;
  */
 
 import com.green.board.model.BoardInsReq;
+import com.green.board.model.BoardSelOneRes;
+import com.green.board.model.BoardSelRes;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequiredArgsConstructor // final 붙은 멤버필드 DI 받을 수 있게 생성자를 만든다. 애노테이션을 생략하면 오버로딩된 생성자를 직접 작성해주면 된다.
 @RestController //빈 등록 + 컨트롤러 임명, 빈 등록은 스프링 컨테이너가 직접 객체화를 한다.
@@ -125,5 +127,17 @@ public class BoardController {
     public int insBoard (@RequestBody BoardInsReq p) {
         System.out.println(p);
         return service.insBoard(p);
+    }
+
+    // 객체 > JSON 바꾸는 직렬화 작업 자동으로 해준다.
+    // localhost:8080/board
+    @GetMapping
+    public List<BoardSelRes> selBoardList () {
+        return service.selBoardList();
+    }
+
+    @GetMapping("{boardId}")
+    public BoardSelOneRes selBoardOne (@PathVariable int boardId) {
+        return service.selBoardOne(boardId);
     }
 }

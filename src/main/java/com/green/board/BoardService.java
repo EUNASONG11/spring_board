@@ -1,8 +1,12 @@
 package com.green.board;
 
 import com.green.board.model.BoardInsReq;
+import com.green.board.model.BoardSelOneRes;
+import com.green.board.model.BoardSelRes;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /*
     @Service - 빈 등록, 서비스가 로직 처리 담당. 로직 처리가 있다면 여기서 처리한다.
@@ -18,5 +22,13 @@ public class BoardService {
 
     public int insBoard(BoardInsReq p) {
         return mapper.insBoard(p);
+    }
+
+    public List<BoardSelRes> selBoardList() {
+        return mapper.selBoardList();
+    }
+
+    public BoardSelOneRes selBoardOne(int p) {
+        return mapper.selBoardOne(p);
     }
 }
