@@ -10,5 +10,5 @@ import lombok.ToString;
 public class BoardInsReq {
     private String title;
     private String contents;
-    private String writher;
+    private String writer;
 }

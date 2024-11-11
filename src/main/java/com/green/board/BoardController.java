@@ -19,12 +19,25 @@ package com.green.board;
     브라우저의 주소창에 주소값을 적고 엔터는 URL + GET 방식 + 데이터 보내는 방식(Key/Value)으로 요청을 보낸다.
     데이터를 보낼 때 보여지나 안보여지나 의 차이가 있다.
     1. 쿼리스트링 방식(파라미터라고 부르기도 함), URL에 데이터를 포함하는 방식
-    2. body에 담아서 보내는 방식
+    2. body에 담아서 보내는 방식(Fromdata, JSON)
 
     쿼리스트링 모양 : ULR + 쿼리스트링(?로 시작, key=value, 여러 개라면 & 구분)
                    www.naver.com?name=홍길동&age=12&height=172.1
 
     대용량의 데이터를 보내야 할 때도 body에 데이터를 담아서 보낸다. URL은 길이 제한이 있기 때문에 URL에 데이터를 포함하는 쿼리스트링은 대용량을 보낼 수 없다.
+
+    JSON(JavaScript Object Notation) : 자바스트립트에서 객체를 만들 때 사용하는 문법을 이용하여
+                                       데이터를 표현하는 포맷(형식), Key와 Value로 이루어져 있다.
+    ex) name은 홍길동, age는 22살, height는 178.2 데이터를 JSON으로 표현을 하면
+        {
+            "name": "홍길동",
+            "age": 22,
+            "height": 178.2
+        }
+        이렇게 표현하는 문자열이다.
+        {}는 객체를 의미하고 []는 배열을 의미한다.
+        ""은 문자열, 숫자형은 ""없이 표현한다.
+        key("name" 등)는 무조건 ""로 감싸줘야 한다.
 
     Restful 이전에는 GET, POST 방식밖에 없었다.
     GET 방식은 주로 쿼리스트링 방식을 사용하고 (데이터를 읽어올 때, 간혹 삭제할 때도 사용함)
@@ -88,14 +101,22 @@ package com.green.board;
  */
 
 import com.green.board.model.BoardInsReq;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@RequiredArgsConstructor // final 붙은 멤버필드 DI 받을 수 있게 생성자를 만든다. 애노테이션을 생략하면 오버로딩된 생성자를 직접 작성해주면 된다.
+@RestController //빈 등록 + 컨트롤러 임명, 빈 등록은 스프링 컨테이너가 직접 객체화를 한다.
 @RequestMapping("/board")
 public class BoardController {
+    private final BoardService boardService;
+
+    // @RequiredArgsConstructor 애노테이션을 붙이면 아래 생성자가 자동으로 만들어진다.
+//    public BoardController(BoardService boardService) {
+//        this.boardService = boardService;
+//    }
 
     // insert(Create)
     @PostMapping // (Post) /board 요청이 오면 이 메소드가 응답 담당자
