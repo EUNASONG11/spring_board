@@ -5,6 +5,9 @@ package com.green.board;
     Annotation(애노테이션)
     @Controller - 응답을 html (데이터로 만든 화면을 응답)
     @RestController - 응답을 json (데이터만 응답)
+    @RequestMapping - URL과 클래스 아래에 있는 Method 맵핑(연결)
+                      class에 RequestMapping 전체 메소드 주소가 맵핑
+    @PostMapping - URL + Post 방식으로 요청이 왔을 시 담당자
 
 
     요청과 응답은 header, body로 이루어져 있다.
@@ -84,9 +87,22 @@ package com.green.board;
     같은 URL 다른 method
  */
 
+import com.green.board.model.BoardInsReq;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/board")
 public class BoardController {
 
+    // insert(Create)
+    @PostMapping // (Post) /board 요청이 오면 이 메소드가 응답 담당자
+    // @PostMapping("/board") : @RequestMapping("/board") 이 코드가 없었다면 URL을 작성해줘야 한다.
+    // @RequestBody는 요청이 올 때 데이터가 JSON 형태로 오니까 JSON에 맞춰서 데이터를 받자는 의미.
+    public int insBoard (@RequestBody BoardInsReq p) {
+        System.out.println(p);
+        return 1;
+    }
 }
