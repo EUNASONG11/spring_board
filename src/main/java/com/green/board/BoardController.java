@@ -79,7 +79,7 @@ package com.green.board;
     - DELETE 방식
 
     POST, PUT/PATCH 방식은 주로 데이터를 body에 담아서 보내고
-    GET, DELETE 방식은 Path Variable or Query String을 사용행서 데이터를 보낸다.
+    GET, DELETE 방식은 Path Variable or Query String을 사용해서 데이터를 보낸다.
 
     FE가 BE한테 ( URL + method + 데이터 ) 요청(Request)을 보내고 BE는 JSON으로 응답(Response)
 
@@ -100,10 +100,7 @@ package com.green.board;
     같은 URL 다른 method
  */
 
-import com.green.board.model.BoardInsReq;
-import com.green.board.model.BoardSelOneRes;
-import com.green.board.model.BoardSelRes;
-import com.green.board.model.BoardUpdReq;
+import com.green.board.model.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -146,5 +143,14 @@ public class BoardController {
     public int updBoard (@RequestBody BoardUpdReq p) {
         System.out.println(p);
         return service.updBoard(p);
+    }
+    /*
+    @ModelAttribute : FormData or Query String 데이터를 받을 수 있다.
+    생략하면 자동으로 붙는다.
+     */
+    @DeleteMapping
+    public int delBoard (@ModelAttribute BoardDelReq p) {
+        System.out.println(p);
+        return service.delBoard(p);
     }
 }

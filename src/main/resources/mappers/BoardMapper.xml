@@ -21,6 +21,16 @@ xml, html 둘 다 마크업 언어이다.
 </insert>
 
 #{멤버필드명}
+
+update 전체 수정
+<update id="updBoard">
+            UPDATE board
+               SET title = #{title}
+                 , contents = #{contents}
+                 , writer = #{writer}
+             WHERE board_id = #{boardId}
+</update>
+
 -->
 <mapper namespace="com.green.board.BoardMapper">
     <insert id="insBoard">
@@ -44,9 +54,23 @@ xml, html 둘 다 마크업 언어이다.
 
     <update id="updBoard">
             UPDATE board
-               SET title = #{title}
-                 , contents = #{contents}
-                 , writer = #{writer}
-             WHERE board_id = #{boardId}
+        <set>
+            <if test=" title != null and title != '' ">
+                title = #{title}
+            </if>
+            <if test=" contents != null and contents != '' ">
+                , contents = #{contents}
+            </if>
+            <if test=" writer != null and writer != '' ">
+                , writer = #{writer}
+            </if>
+        </set>
+        WHERE board_id = #{boardId}
     </update>
+
+    <delete id="delBoard">
+        DELETE FROM board
+         WHERE board_id = #{boardId}
+           AND writer = #{writer}
+    </delete>
 </mapper>
