@@ -16,9 +16,11 @@ xml, html 둘 다 마크업 언어이다.
 참고로 안드로이드에서는 화면을 xml 파일로 구현한다.
 <mapper namespace="연결할 interface full path">
 
-<insert id="연결할 메소드명">
+<insert id="연결할 메소드명"> (BoardMapper에 있는 메소드명과 일치)
     insert 쿼리문 작성
 </insert>
+
+#{멤버필드명}
 -->
 <mapper namespace="com.green.board.BoardMapper">
     <insert id="insBoard">
@@ -39,4 +41,12 @@ xml, html 둘 다 마크업 언어이다.
               FROM board
              WHERE board_id = #{board_id}
     </select>
+
+    <update id="updBoard">
+            UPDATE board
+               SET title = #{title}
+                 , contents = #{contents}
+                 , writer = #{writer}
+             WHERE board_id = #{boardId}
+    </update>
 </mapper>

@@ -4,7 +4,7 @@ package com.green.board;
                        로직 처리는 하지 않는다.
     Annotation(애노테이션)
     @Controller - 응답을 html (데이터로 만든 화면을 응답)
-    @RestController - 응답을 json (데이터만 응답)
+    @RestController - 응답을 JSON (데이터만 응답)
     @RequestMapping - URL과 클래스 아래에 있는 Method 맵핑(연결)
                       class에 RequestMapping 전체 메소드 주소가 맵핑
     @PostMapping - URL + Post 방식으로 요청이 왔을 시 담당자
@@ -103,6 +103,7 @@ package com.green.board;
 import com.green.board.model.BoardInsReq;
 import com.green.board.model.BoardSelOneRes;
 import com.green.board.model.BoardSelRes;
+import com.green.board.model.BoardUpdReq;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -110,7 +111,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RequiredArgsConstructor // final 붙은 멤버필드 DI 받을 수 있게 생성자를 만든다. 애노테이션을 생략하면 오버로딩된 생성자를 직접 작성해주면 된다.
-@RestController //빈 등록 + 컨트롤러 임명, 빈 등록은 스프링 컨테이너가 직접 객체화를 한다.
+@RestController //빈 등록 + 컨트롤러 임명, 빈 등록은 스프링 컨테이너가 직접 객체화를 한다. // 빈 등록 된 것만 DI 가능
 @RequestMapping("/board")
 public class BoardController {
     private final BoardService service;
@@ -122,7 +123,7 @@ public class BoardController {
 
     // insert(Create)
     @PostMapping // (Post) /board 요청이 오면 이 메소드가 응답 담당자
-    // @PostMapping("/board") : @RequestMapping("/board") 이 코드가 없었다면 URL을 작성해줘야 한다.
+    // @PostMapping("/board") : @RequestMapping("/board") 이 코드가 없었다면 URL을 작성해줘야 한다. 똑같은 주소값으로 똑같은 메소드를 사용하면 에러
     // @RequestBody는 요청이 올 때 데이터가 JSON 형태로 오니까 JSON에 맞춰서 데이터를 받자는 의미.
     public int insBoard (@RequestBody BoardInsReq p) {
         System.out.println(p);
@@ -139,5 +140,11 @@ public class BoardController {
     @GetMapping("{boardId}")
     public BoardSelOneRes selBoardOne (@PathVariable int boardId) {
         return service.selBoardOne(boardId);
+    }
+
+    @PutMapping
+    public int updBoard (@RequestBody BoardUpdReq p) {
+        System.out.println(p);
+        return service.updBoard(p);
     }
 }
