@@ -21,7 +21,7 @@ package com.green.board;
     1. 쿼리스트링 방식(파라미터라고 부르기도 함), URL에 데이터를 포함하는 방식
     2. body에 담아서 보내는 방식(Fromdata, JSON)
 
-    쿼리스트링 모양 : ULR + 쿼리스트링(?로 시작, key=value, 여러 개라면 & 구분)
+    쿼리스트링 모양 : URL + 쿼리스트링(?로 시작, key=value, 여러 개라면 & 구분)
                    www.naver.com?name=홍길동&age=12&height=172.1
 
     대용량의 데이터를 보내야 할 때도 body에 데이터를 담아서 보낸다. URL은 길이 제한이 있기 때문에 URL에 데이터를 포함하는 쿼리스트링은 대용량을 보낼 수 없다.
